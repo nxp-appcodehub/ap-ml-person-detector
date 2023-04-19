@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="driver.camera-common.MIMXRT1062"/>
+    <definition extID="driver.video-common.MIMXRT1062"/>
+    <definition extID="driver.video-i2c.MIMXRT1062"/>
+    <definition extID="utility.debug_console_lite.MIMXRT1062"/>
+    <definition extID="middleware.freertos-kernel.heap_4.MIMXRT1062"/>
+    <definition extID="platform.utilities.assert_lite.MIMXRT1062"/>
+    <definition extID="platform.drivers.clock.MIMXRT1062"/>
+    <definition extID="platform.drivers.common.MIMXRT1062"/>
+    <definition extID="device.MIMXRT1062_CMSIS.MIMXRT1062"/>
+    <definition extID="component.lpuart_adapter.MIMXRT1062"/>
+    <definition extID="component.lists.MIMXRT1062"/>
+    <definition extID="platform.drivers.lpuart.MIMXRT1062"/>
+    <definition extID="device.MIMXRT1062_startup.MIMXRT1062"/>
+    <definition extID="platform.drivers.iomuxc.MIMXRT1062"/>
+    <definition extID="platform.drivers.igpio.MIMXRT1062"/>
+    <definition extID="platform.drivers.xip_device.MIMXRT1062"/>
+    <definition extID="platform.drivers.xip_board.evkbmimxrt1060.MIMXRT1062"/>
+    <definition extID="component.silicon_id.MIMXRT1062"/>
+    <definition extID="middleware.freertos-kernel.MIMXRT1062"/>
+    <definition extID="middleware.freertos-kernel.extension.MIMXRT1062"/>
+    <definition extID="CMSIS_Include_core_cm.MIMXRT1062"/>
+    <definition extID="platform.utilities.misc_utilities.MIMXRT1062"/>
+    <definition extID="device.MIMXRT1062_system.MIMXRT1062"/>
+    <definition extID="armgcc"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="com.nxp.mcuxpresso"/>
+    <definition extID="com.nxp.mcuxpresso.core.debug.support.segger.debug"/>
+    <definition extID="com.nxp.mcuxpresso.core.debug.support.segger.release"/>
+    <definition extID="com.crt.advproject.config.exe.debug"/>
+    <definition extID="com.crt.advproject.config.exe.release"/>
+  </externalDefinitions>
+  <example id="ml_person_detector" name="ml_person_detector" dependency="driver.camera-common.MIMXRT1062 driver.video-common.MIMXRT1062 driver.video-i2c.MIMXRT1062 utility.debug_console_lite.MIMXRT1062 middleware.freertos-kernel.heap_4.MIMXRT1062 platform.utilities.assert_lite.MIMXRT1062 platform.drivers.clock.MIMXRT1062 platform.drivers.common.MIMXRT1062 device.MIMXRT1062_CMSIS.MIMXRT1062 component.lpuart_adapter.MIMXRT1062 component.lists.MIMXRT1062 platform.drivers.lpuart.MIMXRT1062 device.MIMXRT1062_startup.MIMXRT1062 platform.drivers.iomuxc.MIMXRT1062 platform.drivers.igpio.MIMXRT1062 platform.drivers.xip_device.MIMXRT1062 platform.drivers.xip_board.evkbmimxrt1060.MIMXRT1062 component.silicon_id.MIMXRT1062 middleware.freertos-kernel.MIMXRT1062 middleware.freertos-kernel.extension.MIMXRT1062 CMSIS_Include_core_cm.MIMXRT1062 platform.utilities.misc_utilities.MIMXRT1062 device.MIMXRT1062_system.MIMXRT1062" category="appswpacks">
+    <projects>
+      <project type="com.crt.advproject.projecttype.exe" nature="org.eclipse.cdt.core.cnature"/>
+    </projects>
+    <memory>
+      <memoryBlock id="BOARD_FLASH_evkbmimxrt1060" name="BOARD_FLASH" addr="60000000" size="00800000" type="ExtFlash" access="RO"/>
+      <memoryBlock id="BOARD_SDRAM_evkbmimxrt1060" name="BOARD_SDRAM" addr="80000000" size="01E00000" type="RAM" access="RW"/>
+      <memoryBlock id="NCACHE_REGION_evkbmimxrt1060" name="NCACHE_REGION" addr="81E00000" size="00200000" type="RAM" access="RW"/>
+      <memoryBlock id="SRAM_DTC_evkbmimxrt1060" name="SRAM_DTC" addr="20000000" size="00020000" type="RAM" access="RW"/>
+      <memoryBlock id="SRAM_ITC_evkbmimxrt1060" name="SRAM_ITC" addr="00000000" size="00020000" type="RAM" access="RW"/>
+      <memoryBlock id="SRAM_OC_evkbmimxrt1060" name="SRAM_OC" addr="20200000" size="000C0000" type="RAM" access="RW"/>
+    </memory>
+    <toolchainSettings>
+        <toolchainSetting id_refs="com.nxp.mcuxpresso">
+            <buildConfigurations>
+                <buildConfiguration instance_of="com.nxp.mcuxpresso.ide.build_config.debug" id="com.nxp.mcuxpresso.ide.build_config.debug" name="Debug">
+                    <description>Debug build</description>
+                </buildConfiguration>
+                <buildConfiguration instance_of="com.nxp.mcuxpresso.ide.build_config.release" id="com.nxp.mcuxpresso.ide.build_config.release" name="Release">
+                    <description>Release build</description>
+                </buildConfiguration>
+            </buildConfigurations>
+            <buildSteps>
+                <postBuildStep build_configs="com.nxp.mcuxpresso.ide.build_config.release com.nxp.mcuxpresso.ide.build_config.debug">arm-none-eabi-size "${BuildArtifactFileName}"; # arm-none-eabi-objcopy -v -O binary "${BuildArtifactFileName}" "${BuildArtifactFileBaseName}.bin" ; # checksum -p ${TargetChip} -d "${BuildArtifactFileBaseName}.bin";  </postBuildStep>
+            </buildSteps>
+            <option id="gnu.cpp.compiler.option.preprocessor.def" type="stringList" build_configs="com.nxp.mcuxpresso.ide.build_config.release com.nxp.mcuxpresso.ide.build_config.debug"/>
+            <option id="com.crt.advproject.cpp.prefixmap" type="string" build_configs="com.nxp.mcuxpresso.ide.build_config.release com.nxp.mcuxpresso.ide.build_config.debug">
+                <value>"$(&lt;D)/"=</value>
+            </option>
+            <option id="com.crt.advproject.c.misc.dialect" type="enum" build_configs="com.nxp.mcuxpresso.ide.build_config.release">
+                <value>com.crt.advproject.misc.dialect.c11</value>
+            </option>
+            <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList" build_configs="com.nxp.mcuxpresso.ide.build_config.release">
+                <value>UVITA_DISPLAY_ENABLE=1</value>
+                <value>XIP_BOOT_HEADER_DCD_ENABLE=1</value>
+                <value>SKIP_SYSCLK_INIT</value>
+                <value>DATA_SECTION_IS_CACHEABLE=1</value>
+                <value>CPU_MIMXRT1062DVL6A</value>
+                <value>XIP_EXTERNAL_FLASH=1</value>
+                <value>XIP_BOOT_HEADER_ENABLE=1</value>
+                <value>SDK_I2C_BASED_COMPONENT_USED=1</value>
+                <value>MCUXPRESSO_SDK</value>
+                <value>CPU_MIMXRT1062DVL6A_cm7</value>
+                <value>CR_INTEGER_PRINTF</value>
+                <value>__MCUXPRESSO</value>
+                <value>__USE_CMSIS</value>
+                <value>DEBUG</value>
+                <value>SDK_DEBUGCONSOLE=0</value>
+                <value>__REDLIB__</value>
+            </option>
+            <option id="com.crt.advproject.gcc.exe.release.option.optimization.level" type="enum" build_configs="com.nxp.mcuxpresso.ide.build_config.release">
+                <value>gnu.c.optimization.level.most</value>
+            </option>
+            <option id="gnu.c.compiler.option.warnings.allwarn" type="boolean" build_configs="com.nxp.mcuxpresso.ide.build_config.release com.nxp.mcuxpresso.ide.build_config.debug">
+                <value>false</value>
+            </option>
+            <option id="gnu.c.compiler.option.misc.other" type="string" build_configs="com.nxp.mcuxpresso.ide.build_config.release com.nxp.mcuxpresso.ide.build_config.debug">
+                <value>-c -ffunction-sections -fdata-sections -ffreestanding -fno-builtin</value>
+            </option>
+            <option id="com.crt.advproject.gcc.prefixmap" type="string" build_configs="com.nxp.mcuxpresso.ide.build_config.release com.nxp.mcuxpresso.ide.build_config.debug">
+                <value>"$(&lt;D)/"=</value>
+            </option>
+            <option id="gnu.both.asm.option.flags.crt" type="string" build_configs="com.nxp.mcuxpresso.ide.build_config.release com.nxp.mcuxpresso.ide.build_config.debug">
+                <value>-c -x assembler-with-cpp -D__REDLIB__</value>
+            </option>
+            <option id="gnu.cpp.link.option.libs" type="stringList" build_configs="com.nxp.mcuxpresso.ide.build_config.release com.nxp.mcuxpresso.ide.build_config.debug"/>
+            <option id="gnu.cpp.link.option.paths" type="stringList" build_configs="com.nxp.mcuxpresso.ide.build_config.release com.nxp.mcuxpresso.ide.build_config.debug"/>
+            <option id="gnu.cpp.link.option.other" type="stringList" build_configs="com.nxp.mcuxpresso.ide.build_config.release com.nxp.mcuxpresso.ide.build_config.debug"/>
+            <option id="com.crt.advproject.link.cpp.lto" type="boolean" build_configs="com.nxp.mcuxpresso.ide.build_config.release com.nxp.mcuxpresso.ide.build_config.debug">
+                <value>false</value>
+            </option>
+            <option id="com.crt.advproject.link.cpp.nanofloat" type="boolean" build_configs="com.nxp.mcuxpresso.ide.build_config.release com.nxp.mcuxpresso.ide.build_config.debug">
+                <value>false</value>
+            </option>
+            <option id="com.crt.advproject.link.cpp.nanofloat.scanf" type="boolean" build_configs="com.nxp.mcuxpresso.ide.build_config.release com.nxp.mcuxpresso.ide.build_config.debug">
+                <value>false</value>
+            </option>
+            <option id="com.crt.advproject.link.memory.sections.cpp" type="stringList" build_configs="com.nxp.mcuxpresso.ide.build_config.release com.nxp.mcuxpresso.ide.build_config.debug"/>
+            <option id="gnu.c.link.option.libs" type="stringList" build_configs="com.nxp.mcuxpresso.ide.build_config.release com.nxp.mcuxpresso.ide.build_config.debug"/>
+            <option id="gnu.c.link.option.paths" type="stringList" build_configs="com.nxp.mcuxpresso.ide.build_config.release com.nxp.mcuxpresso.ide.build_config.debug"/>
+            <option id="gnu.c.link.option.other" type="stringList" build_configs="com.nxp.mcuxpresso.ide.build_config.release">
+                <value>-Map="${BuildArtifactFileBaseName}.map"</value>
+                <value>--no-wchar-size-warning</value>
+                <value>--gc-sections</value>
+                <value>-print-memory-usage</value>
+                <value>--sort-section=alignment</value>
+                <value>--cref</value>
+            </option>
+            <option id="com.crt.advproject.link.gcc.lto" type="boolean" build_configs="com.nxp.mcuxpresso.ide.build_config.release com.nxp.mcuxpresso.ide.build_config.debug">
+                <value>false</value>
+            </option>
+            <option id="com.crt.advproject.link.gcc.hdrlib" type="enum" build_configs="com.nxp.mcuxpresso.ide.build_config.release com.nxp.mcuxpresso.ide.build_config.debug">
+                <value>com.crt.advproject.gcc.link.hdrlib.codered.nohost_nf</value>
+            </option>
+            <option id="com.crt.advproject.link.gcc.nanofloat" type="boolean" build_configs="com.nxp.mcuxpresso.ide.build_config.release com.nxp.mcuxpresso.ide.build_config.debug">
+                <value>false</value>
+            </option>
+            <option id="com.crt.advproject.link.gcc.nanofloat.scanf" type="boolean" build_configs="com.nxp.mcuxpresso.ide.build_config.release com.nxp.mcuxpresso.ide.build_config.debug">
+                <value>false</value>
+            </option>
+            <option id="com.crt.advproject.link.memory.heapAndStack" type="string" build_configs="com.nxp.mcuxpresso.ide.build_config.release com.nxp.mcuxpresso.ide.build_config.debug">
+                <value>&amp;Heap:Default;Post Data;Default&amp;Stack:Default;End;Default</value>
+            </option>
+            <option id="com.crt.advproject.link.memory.sections" type="stringList" build_configs="com.nxp.mcuxpresso.ide.build_config.release com.nxp.mcuxpresso.ide.build_config.debug">
+                <value>isd=*(NonCacheable.init);region=NCACHE_REGION;type=.data</value>
+                <value>isd=*(NonCacheable);region=NCACHE_REGION;type=.bss</value>
+            </option>
+            <option id="com.crt.advproject.c.misc.dialect" type="enum" build_configs="com.nxp.mcuxpresso.ide.build_config.debug">
+                <value>com.crt.advproject.misc.dialect.c11</value>
+            </option>
+            <option id="gnu.c.compiler.option.preprocessor.def.symbols" type="stringList" build_configs="com.nxp.mcuxpresso.ide.build_config.debug">
+                <value>UVITA_DISPLAY_ENABLE=1</value>
+                <value>XIP_BOOT_HEADER_DCD_ENABLE=1</value>
+                <value>SKIP_SYSCLK_INIT</value>
+                <value>DATA_SECTION_IS_CACHEABLE=1</value>
+                <value>CPU_MIMXRT1062DVL6A</value>
+                <value>XIP_EXTERNAL_FLASH=1</value>
+                <value>XIP_BOOT_HEADER_ENABLE=1</value>
+                <value>SDK_I2C_BASED_COMPONENT_USED=1</value>
+                <value>MCUXPRESSO_SDK</value>
+                <value>CPU_MIMXRT1062DVL6A_cm7</value>
+                <value>CR_INTEGER_PRINTF</value>
+                <value>__MCUXPRESSO</value>
+                <value>__USE_CMSIS</value>
+                <value>DEBUG</value>
+                <value>SDK_DEBUGCONSOLE=0</value>
+                <value>__REDLIB__</value>
+            </option>
+            <option id="com.crt.advproject.gcc.exe.debug.option.optimization.level" type="enum" build_configs="com.nxp.mcuxpresso.ide.build_config.debug">
+                <value>gnu.c.optimization.level.most</value>
+            </option>
+            <option id="gnu.c.link.option.other" type="stringList" build_configs="com.nxp.mcuxpresso.ide.build_config.debug">
+                <value>-Map="${BuildArtifactFileBaseName}.map"</value>
+                <value>--no-wchar-size-warning</value>
+                <value>--gc-sections</value>
+                <value>-print-memory-usage</value>
+                <value>--sort-section=alignment</value>
+                <value>--cref</value>
+            </option>
+            <option id="gnu.c.link.option.userobjs" type="stringList">
+                <value>${workspace_loc:/${ProjName}/uvita/model/dperson_shufflenetv2.o}</value>
+            </option>
+            <option id="com.crt.advproject.link.memory.load.image" type="string" build_configs="com.nxp.mcuxpresso.ide.build_config.debug">
+                <value>false;</value>
+            </option>
+            <option id="com.crt.advproject.link.memory.data" type="string" build_configs="com.nxp.mcuxpresso.ide.build_config.debug">
+                <value>Default</value>
+            </option>
+        </toolchainSetting>
+    </toolchainSettings>
+    <include_paths>
+      <include_path path="uvita/message" project_relative_path="uvita/message" type="c_include"/>
+      <include_path path="eiq/glow/bundle_utils" project_relative_path="eiq/glow/bundle_utils" type="c_include"/>
+      <include_path path="uvita/include" project_relative_path="uvita/include" type="c_include"/>
+      <include_path path="uvita/model" project_relative_path="uvita/model" type="c_include"/>
+      <include_path path="uvita/presentation" project_relative_path="uvita/presentation" type="c_include"/>
+      <include_path path="uvita/display" project_relative_path="uvita/display" type="c_include"/>
+      <include_path path="uvita/camera" project_relative_path="uvita/camera" type="c_include"/>
+      <include_path path="uvita/algorithm" project_relative_path="uvita/algorithm" type="c_include"/>
+      <include_path path="board" project_relative_path="board" type="c_include"/>
+      <include_path path="video" project_relative_path="video" type="c_include"/>
+      <include_path path="source" project_relative_path="source" type="c_include"/>
+      <include_path path="board" project_relative_path="board" type="asm_include"/>
+      <include_path path="source" project_relative_path="source" type="asm_include"/>
+    </include_paths>
+    <source path="source" project_relative_path="source" type="c_include">
+        <files mask="FreeRTOSConfig.h"/>
+        <files mask="time.h"/>
+    </source>
+    <source path="source" project_relative_path="source" type="src">
+        <files mask="main.c"/>
+        <files mask="semihost_hardfault.c"/>
+        <files mask="time.c"/>
+    </source>
+    <source path="../common/uvita/algorithm" project_relative_path="uvita/algorithm" type="src">
+        <files mask="uvita_algo.c"/>
+        <files mask="uvita_dperson.c"/>
+        <files mask="uvita_nms.c"/>
+    </source>
+    <source path="../common/uvita/algorithm" project_relative_path="uvita/algorithm" type="c_include">
+        <files mask="uvita_algo.h"/>
+        <files mask="uvita_dperson.h"/>
+        <files mask="uvita_nms.h"/>
+    </source>
+    <source path="camera" project_relative_path="uvita/camera" type="src">
+        <files mask="uvita_camera.c"/>
+        <files mask="uvita_pxp.c"/>
+    </source>
+    <source path="camera" project_relative_path="uvita/camera" type="c_include">
+        <files mask="uvita_camera.h"/>
+        <files mask="uvita_pxp.h"/>
+    </source>
+    <source path="display" project_relative_path="uvita/display" type="src">
+        <files mask="uvita_display.c"/>
+    </source>
+    <source path="display" project_relative_path="uvita/display" type="c_include">
+        <files mask="uvita_display.h"/>
+    </source>
+    <source path="../common/uvita/include" project_relative_path="uvita/include" type="c_include">
+        <files mask="uvita_types.h"/>
+    </source>
+    <source path="../common/uvita/message" project_relative_path="uvita/message" type="src">
+        <files mask="uvita_queue.c"/>
+    </source>
+    <source path="../common/uvita/message" project_relative_path="uvita/message" type="c_include">
+        <files mask="uvita_queue.h"/>
+    </source>
+    <source path="../common/uvita/model" project_relative_path="uvita/model" type="c_include">
+        <files mask="dperson_shufflenetv2.h"/>
+    </source>
+    <source path="../common/uvita/model" project_relative_path="uvita/model" type="other">
+        <files mask="dperson_shufflenetv2.o"/>
+        <files mask="dperson_shufflenetv2.weights.bin"/>
+        <files mask="dperson_shufflenetv2.weights.txt"/>
+    </source>
+    <source path="../common/uvita/presentation/data" project_relative_path="uvita/presentation/data" type="c_include">
+        <files mask="nxp_rgb565_128_45.h"/>
+        <files mask="nxp_rgb565_240_86.h"/>
+    </source>
+    <source path="../common/uvita/presentation" project_relative_path="uvita/presentation" type="src">
+        <files mask="uvita_present.c"/>
+    </source>
+    <source path="../common/uvita/presentation" project_relative_path="uvita/presentation" type="c_include">
+        <files mask="uvita_present.h"/>
+    </source>
+    <source path="board" project_relative_path="board" type="src">
+        <files mask="board.c"/>
+        <files mask="camera_support.c"/>
+        <files mask="clock_config.c"/>
+        <files mask="dcd.c"/>
+        <files mask="display_support.c"/>
+        <files mask="peripherals.c"/>
+        <files mask="pin_mux.c"/>
+    </source>
+    <source path="board" project_relative_path="board" type="c_include">
+        <files mask="board.h"/>
+        <files mask="camera_support.h"/>
+        <files mask="clock_config.h"/>
+        <files mask="dcd.h"/>
+        <files mask="display_support.h"/>
+        <files mask="peripherals.h"/>
+        <files mask="pin_mux.h"/>
+    </source>
+    <source path="utilities" project_relative_path="utilities" type="c_include">
+        <files mask="fsl_debug_console.h"/>
+        <files mask="fsl_debug_console_conf.h"/>
+        <files mask="fsl_str.h"/>
+    </source>
+    <source path="utilities" project_relative_path="utilities" type="src">
+        <files mask="fsl_assert.c"/>
+        <files mask="fsl_debug_console.c"/>
+        <files mask="fsl_str.c"/>
+    </source>
+    <source path="video" project_relative_path="video" type="c_include">
+        <files mask="fsl_camera.h"/>
+        <files mask="fsl_camera_device.h"/>
+        <files mask="fsl_camera_receiver.h"/>
+        <files mask="fsl_csi_camera_adapter.h"/>
+        <files mask="fsl_dc_fb.h"/>
+        <files mask="fsl_dc_fb_elcdif.h"/>
+        <files mask="fsl_dc_fb_lcdifv2.h"/>
+        <files mask="fsl_mt9m114.h"/>
+        <files mask="fsl_ov7725.h"/>
+        <files mask="fsl_sccb.h"/>
+        <files mask="fsl_video_common.h"/>
+        <files mask="fsl_video_i2c.h"/>
+    </source>
+    <source path="video" project_relative_path="video" type="src">
+        <files mask="fsl_csi_camera_adapter.c"/>
+        <files mask="fsl_dc_fb_elcdif.c"/>
+        <files mask="fsl_dc_fb_lcdifv2.c"/>
+        <files mask="fsl_mt9m114.c"/>
+        <files mask="fsl_mipi_dsi_cmd.c"/>
+        <files mask="fsl_ov5640.c"/>
+        <files mask="fsl_ov7725.c"/>
+        <files mask="fsl_video_i2c.c"/>
+        <files mask="fsl_sccb.c"/>
+        <files mask="fsl_video_common.c"/>
+    </source>
+    <source path="drivers" project_relative_path="drivers" type="src">
+        <files mask="fsl_csi.c"/>
+        <files mask="fsl_dmamux.c"/>
+        <files mask="fsl_edma.c"/>
+        <files mask="fsl_elcdif.c"/>
+        <files mask="fsl_lcdifv2.c"/>
+        <files mask="fsl_lpi2c.c"/>
+        <files mask="fsl_mipi_csi2rx.c"/>
+        <files mask="fsl_mipi_dsi.c"/>
+        <files mask="fsl_pit.c"/>
+        <files mask="fsl_pxp.c"/>
+        <files mask="fsl_sai.c"/>
+        <files mask="fsl_sai_edma.c"/>
+        <files mask="fsl_soc_mipi_csi2rx.c"/>
+        <files mask="fsl_soc_src.c"/>
+        <files mask="fsl_common.c"/>
+        <files mask="fsl_common_arm.c"/>
+        <files mask="fsl_gpio.c"/>
+        <files mask="fsl_lpuart.c"/>
+        <files mask="fsl_adapter_i2c.c"/>
+    </source>
+    <source path="drivers" project_relative_path="drivers" type="c_include">
+        <files mask="fsl_csi.h"/>
+        <files mask="fsl_dmamux.h"/>
+        <files mask="fsl_edma.h"/>
+        <files mask="fsl_elcdif.h"/>
+        <files mask="fsl_lcdifv2.h"/>
+        <files mask="fsl_lpi2c.h"/>
+        <files mask="fsl_mipi_csi2rx.h"/>
+        <files mask="fsl_mipi_dsi.h"/>
+        <files mask="fsl_pit.h"/>
+        <files mask="fsl_pxp.h"/>
+        <files mask="fsl_sai.h"/>
+        <files mask="fsl_sai_edma.h"/>
+        <files mask="fsl_soc_mipi_csi2rx.h"/>
+        <files mask="fsl_soc_src.h"/>
+        <files mask="fsl_common.h"/>
+        <files mask="fsl_common_arm.h"/>
+        <files mask="fsl_gpio.h"/>
+        <files mask="fsl_lpuart.h"/>
+    </source>
+    <source path="../common/eiq/glow/bundle_utils" project_relative_path="eiq/glow/bundle_utils" type="c_include">
+        <files mask="glow_bundle_utils.h"/>
+    </source>
+    <source path="../common/eiq/glow/bundle_utils" project_relative_path="eiq/glow/bundle_utils" type="src">
+        <files mask="glow_bundle_utils.c"/>
+    </source>
+  </example>
+</ksdk:examples>

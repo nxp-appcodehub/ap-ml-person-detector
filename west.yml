@@ -1,0 +1,32 @@
+# The west manifest file (west.yml) for MCUXpresso SDK overall delivery.
+#
+# The per-workspace west configuration file, ${workspace_path}/.west/config,
+# specifies the path of the project containing this manifest file, the
+# path is relative to the workspace location ${workspace_path}.
+#
+#     [manifest]
+#     path = appswpacks_ml_person_detector
+#
+# See the west documentation for more information:
+#
+# https://docs.zephyrproject.org/latest/guides/west/index.html
+
+manifest:
+
+  remotes:
+    - name: nxp-mcuxpresso
+      url-base: https://github.com/nxp-mcuxpresso
+
+  defaults:
+    remote: nxp-mcuxpresso
+
+  projects:
+    - name: mcux-sdk
+      revision: MCUX_2.11.0
+      path: core
+      import:
+        name-allowlist:
+          - FreeRTOS-Kernel
+
+  self:
+    path: examples
