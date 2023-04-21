@@ -8,13 +8,14 @@ Step-by-step guide for development and deployment of a person detector using con
 ## Overview
 The following is a list of all components that are available in the ml_person_detector folder.
 
-| Components                       | Description                                                                   |
-|:---------------------------------|:------------------------------------------------------------------------------|
-| scripts                          | Test scripts in Python for the multiple person detection model running on PC. |
-| models                           | The original CNN model in format of ONNX.                                     |
-| data                             | Test images and quantization calibration images.                              |
-| converter                        | eIQ® Inference with Glow NN.                                                  | 
-| app                              | The ML-Person-Detector project of the i.MX RT1170EVK and RT1060EVK.           |
+| Components | Description                                                                   |
+|:-----------|:------------------------------------------------------------------------------|
+| scripts    | Test scripts in Python for the multiple person detection model running on PC. |
+| models     | The original CNN model in format of ONNX.                                     |
+| data       | Test images and quantization calibration images.                              |
+| converter  | eIQ® Inference with Glow NN.                                                  | 
+| app        | The ML-Person-Detector project of the i.MX RT1170EVK and RT1060EVK.           |
+| doc        | Lab guide.                                                                    |
 
 ## Resources
 * Purchase supported boards.
@@ -31,7 +32,7 @@ west update
 ```
 
 ## Build and Run the Application
-To build and run the application, please refer to the lab guide in the Doc folder or check the steps in [Run a project using MCUXpresso IDE](https://github.com/NXPmicro/mcux-sdk/blob/main/docs/run_a_project_using_mcux.md).
+To build and run the application, please refer to the [Lab Guide](ml_person_detector/doc/Lab_Guide_ML_Person_Detector.pdf) in the doc folder or check the steps in [Run a project using MCUXpresso IDE](https://github.com/NXPmicro/mcux-sdk/blob/main/docs/run_a_project_using_mcux.md).
 
 ## ML-Person-Detector Verification on PC
  Dependent package: 
