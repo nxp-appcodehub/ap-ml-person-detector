@@ -1,0 +1,26 @@
+<data:item xmlns:data="data" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="data ../../xsd/alp.xsd" id="ap-ml-person-detector" type="sw_pack" format="projectfile" name="ML Person Detector">
+<overview>
+<![CDATA[ This App SW Pack provides a ML example for people detection using eIQ. The software provides customers with product quality code that can be integrated into their designs. ]]>
+</overview>
+<toolchains>
+<toolchain name="mcux"/>
+</toolchains>
+<families>
+<family name="imxrt"/>
+</families>
+<nxp_compatible_hw>
+<hw id="MIMXRT1170-EVK"/>
+<hw id="EVK-MIMXRT1060"/>
+</nxp_compatible_hw>
+<peripherals>
+<peripheral name="display"/>
+<peripheral name="uart"/>
+<peripheral name="video"/>
+</peripherals>
+<categories>
+<category name="aiml"/>
+<category name="industrial"/>
+<category name="security"/>
+<category name="vision"/>
+</categories>
+</data:item>

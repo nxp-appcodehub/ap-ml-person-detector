@@ -1,9 +1,9 @@
-Release name: appswpacks-ml-person-detector
+Release name: ap-ml-person-detector
 Release version: 1.0.0
-Outgoing License: LA_OPT_NXP_SOFTWARE_License v44 March 2023 - Additional distribution license granted, license in Section 2.3 applies
-License in File: COPYING
+Outgoing License: LA_OPT_NXP_Software_License v48 July 2023 - Additional distribution license granted, license in Section 2.3 applies
+License File: License.txt
 Description: This software pack helps developers build products that are required to detect people using NXP’s i.MX RT1170 and i.MX RT1060 crossover MCUs and eIQ® ML Software Development Environment. This project includes tested algorithms for Vision Intelligence (uVITA) and provides production quality software for customers to include in their end products.
-Release location: https://github.com/nxp-mcuxpresso/
+Release location: https://github.com/nxp-appcodehub/
 Origin: NXP (proprietary) - for LA_OPT licenses
 
 freertos                   Name: FreeRTOS                                    
